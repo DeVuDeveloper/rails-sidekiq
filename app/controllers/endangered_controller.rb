@@ -18,10 +18,15 @@ class EndangeredController < ApplicationController
     redirect_to endangered_data_path, notice: 'Endangered sharks have been uploaded!'
   end
 
+  def destroy
+    RemoveEndangeredWorker.perform_async
+    redirect_to root_path
+  end
+
   private
 
     def set_endangered
       @endangered = Endangered.all 
-    end
+    end 
 
 end
